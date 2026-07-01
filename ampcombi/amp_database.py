@@ -50,7 +50,7 @@ def download_ref_db(db, database, threads):
             valid_sequence_pattern = re.compile("^[ACDEFGHIKLMNPQRSTVWY]+$")
             for index, row in db_df.iterrows():
                 sequence = row['Sequence']
-                if valid_sequence_pattern.match(sequence):
+                if pd.notna(sequence) and valid_sequence_pattern.match(sequence):
                     record = SeqRecord(Seq(sequence), id=str(row['DRAMP_ID']), description="")
                     records.append(record)
             output_file = f'{db}/general_amps_{date}.fasta'
